@@ -54,7 +54,7 @@
         {"@type":"Question","name":"Varikoseleda operatsiyadan keyin natijani qachon ko‘rish mumkin?","acceptedAnswer":{"@type":"Answer","text":"Sperma ko‘rsatkichlari odatda 3 oydan keyin yaxshilana boshlaydi, yakuniy natijani baholash uchun 6 oygacha vaqt kerak bo‘lishi mumkin."}},
         {"@type":"Question","name":"Jinsiy olatni protezlash kimlarga kerak?","acceptedAnswer":{"@type":"Answer","text":"Dori va boshqa konservativ davolash yordam bermagan og‘ir erektil disfunksiyada protezlash tavsiya etiladi. Tadqiqotlarda bemorlar va ularning juftlari orasida qoniqish yuqori."}},
         {"@type":"Question","name":"Maslahat maxfiymi?","acceptedAnswer":{"@type":"Answer","text":"Ha, barcha qabul va tekshiruv natijalari to‘liq maxfiy saqlanadi."}},
-        {"@type":"Question","name":"Qabulga qanday yozilaman?","acceptedAnswer":{"@type":"Answer","text":"+998 91 151 55 88 raqamiga qo‘ng‘iroq qiling yoki saytdagi forma orqali WhatsApp’da yozing. Qabul Qo‘qon shahridagi VitaMed klinikasida."}}
+        {"@type":"Question","name":"Qabulga qanday yozilaman?","acceptedAnswer":{"@type":"Answer","text":"+998 91 151 55 88 raqamiga qo‘ng‘iroq qiling yoki saytdagi forma orqali Telegram’da yozing. Qabul Qo‘qon shahridagi VitaMed klinikasida."}}
       ]
     }
   ]
@@ -685,7 +685,7 @@ footer .wrap{display:grid;gap:22px}
       <details><summary>Varikoseleda operatsiyadan keyin natijani qachon ko‘rish mumkin?</summary><p>Sperma ko‘rsatkichlari odatda 3 oydan keyin yaxshilana boshlaydi, yakuniy natijani baholash uchun 6 oygacha vaqt kerak bo‘lishi mumkin.</p></details>
       <details><summary>Jinsiy olatni protezlash kimlarga kerak?</summary><p>Dori va boshqa konservativ davolash yordam bermagan og‘ir erektil disfunksiyada protezlash tavsiya etiladi. Tadqiqotlarda bemorlar va ularning juftlari orasida qoniqish yuqori.</p></details>
       <details><summary>Maslahat maxfiymi?</summary><p>Ha, barcha qabul va tekshiruv natijalari to‘liq maxfiy saqlanadi.</p></details>
-      <details><summary>Qabulga qanday yozilaman?</summary><p>+998 91 151 55 88 raqamiga qo‘ng‘iroq qiling yoki quyidagi forma orqali WhatsApp’da yozing. Qabul Qo‘qon shahridagi VitaMed klinikasida.</p></details>
+      <details><summary>Qabulga qanday yozilaman?</summary><p>+998 91 151 55 88 raqamiga qo‘ng‘iroq qiling yoki quyidagi forma orqali Telegram’da yozing. Qabul Qo‘qon shahridagi VitaMed klinikasida.</p></details>
     </div>
   </div>
 </section>
@@ -726,8 +726,8 @@ footer .wrap{display:grid;gap:22px}
       <label for="sv">Muammo turi
         <select id="sv"><option>Prostata</option><option>Buyrak / siydik toshi</option><option>Varikosele / bepushtlik</option><option>Jinsiy zaiflik</option><option>Boshqa savol</option></select></label>
       <label for="ms">Qisqacha izoh<textarea id="ms" placeholder="Ixtiyoriy"></textarea></label>
-      <a id="wa" class="btn btn-gold" href="#" target="_blank" rel="noopener">WhatsApp orqali yuborish</a>
-      <p class="small" style="margin:0">Tugma xabarni WhatsApp’da tayyor holda ochadi. Ma’lumotlar maxfiy.</p>
+      <a id="tg" class="btn btn-gold" href="https://t.me/+998911515588" target="_blank" rel="noopener">✈️ Telegram orqali yuborish</a>
+      <p class="small" id="tgnote" style="margin:0" aria-live="polite">Tugma xabarni nusxalaydi va Telegram’da chatni ochadi: xabarni joylashtirib (Paste) yuboring. Ma’lumotlar maxfiy.</p>
     </form>
   </div>
 </section>
@@ -797,12 +797,9 @@ $$('.myth button').forEach(b=>b.addEventListener('click',()=>b.setAttribute('ari
  $('#dq').addEventListener('input',run)})();
 
 /* contact */
-const wa=$('#wa');
-function buildWa(){
-  const t=`Assalomu alaykum, doktor Avazxon.%0AIsmim: ${encodeURIComponent($('#nm').value||'-')}%0ATelefon: ${encodeURIComponent($('#ph').value||'-')}%0AMuammo: ${encodeURIComponent($('#sv').value)}%0A${encodeURIComponent($('#ms').value)}`;
-  wa.href='https://wa.me/998911515588?text='+t;
-}
-['nm','ph','sv','ms'].forEach(id=>$('#'+id).addEventListener('input',buildWa));buildWa();
+const tg=$('#tg'),tgn=$('#tgnote'),tgn0=tgn.textContent;
+function msg(){return ['Assalomu alaykum, doktor Avazxon.','Ismim: '+($('#nm').value||'-'),'Telefon: '+($('#ph').value||'-'),'Muammo: '+$('#sv').value,$('#ms').value].join('\n').trim()}
+tg.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(msg());tgn.textContent='✓ Xabar nusxalandi. Telegram’da chatga joylashtiring (Paste) va yuboring.'}catch(e){tgn.textContent='Telegram ochildi. Ism va telefon raqamingizni chatda yozib qoldiring.'}});
 $('#cp').addEventListener('click',async()=>{const b=$('#cp');try{await navigator.clipboard.writeText('+998911515588');b.textContent='Nusxalandi ✓'}catch(e){b.textContent='+998 91 151 55 88'}setTimeout(()=>b.textContent='Raqamni nusxalash',2200)});
 </script>
 </body>

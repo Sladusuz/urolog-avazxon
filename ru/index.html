@@ -54,7 +54,7 @@
         {"@type":"Question","name":"Когда после операции при варикоцеле виден результат?","acceptedAnswer":{"@type":"Answer","text":"Показатели спермы обычно начинают улучшаться через 3 месяца, для окончательной оценки может потребоваться до 6 месяцев."}},
         {"@type":"Question","name":"Кому нужно протезирование полового члена?","acceptedAnswer":{"@type":"Answer","text":"Протезирование рекомендуется при тяжёлой эректильной дисфункции, когда лекарства и другое консервативное лечение не помогли. В исследованиях удовлетворённость пациентов и их партнёрш высокая."}},
         {"@type":"Question","name":"Консультация конфиденциальна?","acceptedAnswer":{"@type":"Answer","text":"Да, все приёмы и результаты обследований строго конфиденциальны."}},
-        {"@type":"Question","name":"Как записаться на приём?","acceptedAnswer":{"@type":"Answer","text":"Позвоните по номеру +998 91 151 55 88 или напишите в WhatsApp через форму на сайте. Приём проходит в клинике VitaMed в Коканде."}}
+        {"@type":"Question","name":"Как записаться на приём?","acceptedAnswer":{"@type":"Answer","text":"Позвоните по номеру +998 91 151 55 88 или напишите в Telegram через форму на сайте. Приём проходит в клинике VitaMed в Коканде."}}
       ]
     }
   ]
@@ -685,7 +685,7 @@ footer .wrap{display:grid;gap:22px}
       <details><summary>Когда после операции при варикоцеле виден результат?</summary><p>Показатели спермы обычно начинают улучшаться через 3 месяца, для окончательной оценки может потребоваться до 6 месяцев.</p></details>
       <details><summary>Кому нужно протезирование полового члена?</summary><p>Протезирование рекомендуется при тяжёлой эректильной дисфункции, когда лекарства и другое консервативное лечение не помогли. В исследованиях удовлетворённость пациентов и их партнёрш высокая.</p></details>
       <details><summary>Консультация конфиденциальна?</summary><p>Да, все приёмы и результаты обследований строго конфиденциальны.</p></details>
-      <details><summary>Как записаться на приём?</summary><p>Позвоните по номеру +998 91 151 55 88 или напишите в WhatsApp через форму на сайте. Приём проходит в клинике VitaMed в Коканде.</p></details>
+      <details><summary>Как записаться на приём?</summary><p>Позвоните по номеру +998 91 151 55 88 или напишите в Telegram через форму на сайте. Приём проходит в клинике VitaMed в Коканде.</p></details>
     </div>
   </div>
 </section>
@@ -726,8 +726,8 @@ footer .wrap{display:grid;gap:22px}
       <label for="sv">Тип проблемы
         <select id="sv"><option>Простата</option><option>Камни в почках / мочевых путях</option><option>Варикоцеле / бесплодие</option><option>Эректильная дисфункция</option><option>Другой вопрос</option></select></label>
       <label for="ms">Краткий комментарий<textarea id="ms" placeholder="Необязательно"></textarea></label>
-      <a id="wa" class="btn btn-gold" href="#" target="_blank" rel="noopener">Отправить через WhatsApp</a>
-      <p class="small" style="margin:0">Кнопка откроет готовое сообщение в WhatsApp. Данные конфиденциальны.</p>
+      <a id="tg" class="btn btn-gold" href="https://t.me/+998911515588" target="_blank" rel="noopener">✈️ Отправить через Telegram</a>
+      <p class="small" id="tgnote" style="margin:0" aria-live="polite">Кнопка скопирует сообщение и откроет чат в Telegram: вставьте (Paste) сообщение и отправьте. Данные конфиденциальны.</p>
     </form>
   </div>
 </section>
@@ -797,12 +797,9 @@ $$('.myth button').forEach(b=>b.addEventListener('click',()=>b.setAttribute('ari
  $('#dq').addEventListener('input',run)})();
 
 /* contact */
-const wa=$('#wa');
-function buildWa(){
-  const t=`Здравствуйте, доктор Авазхон.%0AМеня зовут: ${encodeURIComponent($('#nm').value||'-')}%0AТелефон: ${encodeURIComponent($('#ph').value||'-')}%0AПроблема: ${encodeURIComponent($('#sv').value)}%0A${encodeURIComponent($('#ms').value)}`;
-  wa.href='https://wa.me/998911515588?text='+t;
-}
-['nm','ph','sv','ms'].forEach(id=>$('#'+id).addEventListener('input',buildWa));buildWa();
+const tg=$('#tg'),tgn=$('#tgnote'),tgn0=tgn.textContent;
+function msg(){return ['Здравствуйте, доктор Авазхон.','Меня зовут: '+($('#nm').value||'-'),'Телефон: '+($('#ph').value||'-'),'Проблема: '+$('#sv').value,$('#ms').value].join('\n').trim()}
+tg.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(msg());tgn.textContent='✓ Сообщение скопировано. Вставьте его в чат Telegram (Paste) и отправьте.'}catch(e){tgn.textContent='Telegram открыт. Напишите в чате своё имя и номер телефона.'}});
 $('#cp').addEventListener('click',async()=>{const b=$('#cp');try{await navigator.clipboard.writeText('+998911515588');b.textContent='Скопировано ✓'}catch(e){b.textContent='+998 91 151 55 88'}setTimeout(()=>b.textContent='Скопировать номер',2200)});
 </script>
 </body>
