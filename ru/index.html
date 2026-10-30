@@ -16,11 +16,12 @@
 <meta name="twitter:card" content="summary_large_image">
 <!-- После выбора домена: <link rel="canonical" href="https://ВАШ-ДОМЕН.uz/ru/"> -->
 <link rel="alternate" hreflang="uz" href="../">
+<link rel="alternate" hreflang="uz-Cyrl" href="../kiril/">
 <link rel="alternate" hreflang="ru" href="./">
 <link rel="alternate" hreflang="x-default" href="../">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="../img/doctor.webp" type="image/webp">
 
 <script type="application/ld+json">
@@ -67,7 +68,7 @@
   --bg:#08150f; --bg2:#0c1d15; --bg3:#102619; --card:#122b20;
   --line:rgba(255,255,255,.09); --ink:#f4f0e6; --mute:#a7b8ae;
   --gold:#d9b46a; --gold2:#f3dca4; --leaf:#86b573; --red:#e0735f;
-  --serif:'Fraunces',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+  --serif:'Lora',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
   --r:24px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -367,6 +368,9 @@ footer .wrap{display:grid;gap:22px}
 .soc a{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:1px solid rgba(217,180,106,.35);background:rgba(217,180,106,.08);font-size:.84rem;font-weight:700;transition:.25s}
 .soc a:hover{background:rgba(217,180,106,.2);border-color:var(--gold)}
 .soc svg{width:18px;height:18px;flex:none;color:var(--gold2)}
+.menu a,.nav .btn{white-space:nowrap}
+@media(max-width:1340px){.menu{gap:16px;font-size:.82rem}.nav .btn{padding:12px 18px;font-size:.85rem}}
+@media(max-width:1170px){.menu{display:none}}
 .lang{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.04em}
 .lang a,.lang b{padding:5px 10px;border-radius:999px}
 .lang b{background:var(--gold);color:#08150f}
@@ -388,7 +392,7 @@ footer .wrap{display:grid;gap:22px}
       <a href="#maqolalar">Статьи</a>
       <a href="#savollar">Вопросы</a>
     </nav>
-    <span class="lang" aria-label="Язык"><a href="../" hreflang="uz" lang="uz">UZ</a><b aria-current="true">RU</b></span>
+    <span class="lang" aria-label="Язык"><a href="../" hreflang="uz" lang="uz">UZ</a><a href="../kiril/" hreflang="uz-Cyrl" lang="uz-Cyrl">ЎЗ</a><b aria-current="true">RU</b></span>
     <a href="#aloqa" class="btn btn-gold">Записаться на приём</a>
   </div>
 </header>

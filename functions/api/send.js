@@ -14,7 +14,7 @@ export async function onRequestPost({ request, env }) {
 
   const text = [
     '🩺 Yangi so‘rov (sayt)',
-    'Til: ' + (d.lang === 'ru' ? 'RU' : 'UZ'),
+    'Til: ' + (d.lang === 'ru' ? 'RU' : d.lang === 'uz-Cyrl' ? 'UZ (kirill)' : 'UZ'),
     'Ism: ' + name,
     'Telefon: ' + phone,
     'Muammo: ' + (topic || '-'),
