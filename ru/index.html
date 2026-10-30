@@ -739,8 +739,9 @@ footer .wrap{display:grid;gap:22px}
       <label for="sv">Тип проблемы
         <select id="sv"><option>Простата</option><option>Камни в почках / мочевых путях</option><option>Варикоцеле / бесплодие</option><option>Эректильная дисфункция</option><option>Другой вопрос</option></select></label>
       <label for="ms">Краткий комментарий<textarea id="ms" placeholder="Необязательно"></textarea></label>
-      <a id="tg" class="btn btn-gold" href="https://t.me/+998911515588" target="_blank" rel="noopener">✈️ Отправить через Telegram</a>
-      <p class="small" id="tgnote" style="margin:0" aria-live="polite">Кнопка скопирует сообщение и откроет чат в Telegram: вставьте (Paste) сообщение и отправьте. Данные конфиденциальны.</p>
+      <input type="text" id="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0">
+      <button id="tg" type="button" class="btn btn-gold" style="width:100%;border:0;cursor:pointer">✈️ Отправить через Telegram</button>
+      <p class="small" id="tgnote" style="margin:0" aria-live="polite">Кнопка отправит ваши данные напрямую в Telegram-бот врача. Данные конфиденциальны.</p>
     </form>
   </div>
 </section>
@@ -810,9 +811,23 @@ $$('.myth button').forEach(b=>b.addEventListener('click',()=>b.setAttribute('ari
  $('#dq').addEventListener('input',run)})();
 
 /* contact */
-const tg=$('#tg'),tgn=$('#tgnote'),tgn0=tgn.textContent;
+const tg=$('#tg'),tgn=$('#tgnote');
+const T={wait:'Отправка...',sent:'✓ Ваша заявка отправлена. Мы скоро свяжемся с вами.',need:'Пожалуйста, введите имя и номер телефона.',fail:'Не удалось отправить. Сообщение скопировано, вставьте его в бот: '};
 function msg(){return ['Здравствуйте, доктор Авазхон.','Меня зовут: '+($('#nm').value||'-'),'Телефон: '+($('#ph').value||'-'),'Проблема: '+$('#sv').value,$('#ms').value].join('\n').trim()}
-tg.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(msg());tgn.textContent='✓ Сообщение скопировано. Вставьте его в чат Telegram (Paste) и отправьте.'}catch(e){tgn.textContent='Telegram открыт. Напишите в чате своё имя и номер телефона.'}});
+tg.addEventListener('click',async()=>{
+  const nm=$('#nm').value.trim(),ph=$('#ph').value.trim();
+  if(nm.length<2||ph.replace(/\D/g,'').length<9){tgn.textContent=T.need;(nm.length<2?$('#nm'):$('#ph')).focus();return}
+  tg.disabled=true;tgn.textContent=T.wait;
+  try{
+    const r=await fetch('/.netlify/functions/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:nm,phone:ph,topic:$('#sv').value,note:$('#ms').value.trim(),lang:document.documentElement.lang,website:$('#hp').value})});
+    if(!r.ok)throw 0;
+    tgn.textContent=T.sent;$('#f').reset();
+  }catch(e){
+    try{await navigator.clipboard.writeText(msg())}catch(_){}
+    tgn.innerHTML=T.fail+'<a href="https://t.me/Avazxon_urolog_bot" target="_blank" rel="noopener" style="color:var(--gold2)">@Avazxon_urolog_bot</a>';
+  }
+  tg.disabled=false;
+});
 $('#cp').addEventListener('click',async()=>{const b=$('#cp');try{await navigator.clipboard.writeText('+998911515588');b.textContent='Скопировано ✓'}catch(e){b.textContent='+998 91 151 55 88'}setTimeout(()=>b.textContent='Скопировать номер',2200)});
 </script>
 </body>

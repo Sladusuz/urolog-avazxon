@@ -739,8 +739,9 @@ footer .wrap{display:grid;gap:22px}
       <label for="sv">Muammo turi
         <select id="sv"><option>Prostata</option><option>Buyrak / siydik toshi</option><option>Varikosele / bepushtlik</option><option>Jinsiy zaiflik</option><option>Boshqa savol</option></select></label>
       <label for="ms">Qisqacha izoh<textarea id="ms" placeholder="Ixtiyoriy"></textarea></label>
-      <a id="tg" class="btn btn-gold" href="https://t.me/+998911515588" target="_blank" rel="noopener">✈️ Telegram orqali yuborish</a>
-      <p class="small" id="tgnote" style="margin:0" aria-live="polite">Tugma xabarni nusxalaydi va Telegram’da chatni ochadi: xabarni joylashtirib (Paste) yuboring. Ma’lumotlar maxfiy.</p>
+      <input type="text" id="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0">
+      <button id="tg" type="button" class="btn btn-gold" style="width:100%;border:0;cursor:pointer">✈️ Telegram orqali yuborish</button>
+      <p class="small" id="tgnote" style="margin:0" aria-live="polite">Tugma ma’lumotlaringizni to‘g‘ridan-to‘g‘ri shifokorning Telegram botiga yuboradi. Ma’lumotlar maxfiy.</p>
     </form>
   </div>
 </section>
@@ -810,9 +811,23 @@ $$('.myth button').forEach(b=>b.addEventListener('click',()=>b.setAttribute('ari
  $('#dq').addEventListener('input',run)})();
 
 /* contact */
-const tg=$('#tg'),tgn=$('#tgnote'),tgn0=tgn.textContent;
+const tg=$('#tg'),tgn=$('#tgnote');
+const T={wait:'Yuborilmoqda...',sent:'✓ So‘rovingiz yuborildi. Tez orada siz bilan bog‘lanamiz.',need:'Iltimos, ism va telefon raqamingizni kiriting.',fail:'Yuborib bo‘lmadi. Xabar nusxalandi, uni botga joylashtiring: '};
 function msg(){return ['Assalomu alaykum, doktor Avazxon.','Ismim: '+($('#nm').value||'-'),'Telefon: '+($('#ph').value||'-'),'Muammo: '+$('#sv').value,$('#ms').value].join('\n').trim()}
-tg.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(msg());tgn.textContent='✓ Xabar nusxalandi. Telegram’da chatga joylashtiring (Paste) va yuboring.'}catch(e){tgn.textContent='Telegram ochildi. Ism va telefon raqamingizni chatda yozib qoldiring.'}});
+tg.addEventListener('click',async()=>{
+  const nm=$('#nm').value.trim(),ph=$('#ph').value.trim();
+  if(nm.length<2||ph.replace(/\D/g,'').length<9){tgn.textContent=T.need;(nm.length<2?$('#nm'):$('#ph')).focus();return}
+  tg.disabled=true;tgn.textContent=T.wait;
+  try{
+    const r=await fetch('/.netlify/functions/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:nm,phone:ph,topic:$('#sv').value,note:$('#ms').value.trim(),lang:document.documentElement.lang,website:$('#hp').value})});
+    if(!r.ok)throw 0;
+    tgn.textContent=T.sent;$('#f').reset();
+  }catch(e){
+    try{await navigator.clipboard.writeText(msg())}catch(_){}
+    tgn.innerHTML=T.fail+'<a href="https://t.me/Avazxon_urolog_bot" target="_blank" rel="noopener" style="color:var(--gold2)">@Avazxon_urolog_bot</a>';
+  }
+  tg.disabled=false;
+});
 $('#cp').addEventListener('click',async()=>{const b=$('#cp');try{await navigator.clipboard.writeText('+998911515588');b.textContent='Nusxalandi ✓'}catch(e){b.textContent='+998 91 151 55 88'}setTimeout(()=>b.textContent='Raqamni nusxalash',2200)});
 </script>
 </body>
