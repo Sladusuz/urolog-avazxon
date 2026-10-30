@@ -1,0 +1,12 @@
+.assetsignore
+wrangler.jsonc
+netlify.toml
+netlify/
+functions/
+src/
+node_modules/
+package.json
+.git/
+.claude/
+CLAUDE.md
+README.md
