@@ -819,7 +819,7 @@ tg.addEventListener('click',async()=>{
   if(nm.length<2||ph.replace(/\D/g,'').length<9){tgn.textContent=T.need;(nm.length<2?$('#nm'):$('#ph')).focus();return}
   tg.disabled=true;tgn.textContent=T.wait;
   try{
-    const r=await fetch('/.netlify/functions/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:nm,phone:ph,topic:$('#sv').value,note:$('#ms').value.trim(),lang:document.documentElement.lang,website:$('#hp').value})});
+    const r=await fetch('/api/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:nm,phone:ph,topic:$('#sv').value,note:$('#ms').value.trim(),lang:document.documentElement.lang,website:$('#hp').value})});
     if(!r.ok)throw 0;
     tgn.textContent=T.sent;$('#f').reset();
   }catch(e){
